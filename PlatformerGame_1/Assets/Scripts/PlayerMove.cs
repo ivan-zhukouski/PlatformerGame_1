@@ -6,7 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     Rigidbody2D playerRB;
     public float moveSpeed;
-    public float jumpForce;
+    float jumpForce = 14f;
     float horizontalMove;
     bool isGrounded;
     public Transform groundCheck;
@@ -72,6 +72,7 @@ public class PlayerMove : MonoBehaviour
         if(!isGrounded)
         {
             animator.SetInteger("State", 2);
+            FlipPlayer();
         }
     }
 }
