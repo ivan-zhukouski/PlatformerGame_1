@@ -6,16 +6,23 @@ public class PlayerMove : MonoBehaviour
 {
     Rigidbody2D playerRB;
     public float moveSpeed;
-    public float jumpForce;
+    float jumpForce = 14f;
     float horizontalMove;
     bool isGrounded;
     public Transform groundCheck;
     Animator animator;
+    int maxHP = 3;
+    int currentHP;
+    bool isHit = false;
+    SpriteRenderer spriteRenderer;
+    public Mein mein;
 
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        currentHP = maxHP;
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     
@@ -34,16 +41,16 @@ public class PlayerMove : MonoBehaviour
                 animator.SetInteger("State", 1);
             }
         }
-        Debug.Log(isGrounded);
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            Jump();
+        }
     }
 
     void FixedUpdate()
     {
         playerRB.velocity = new Vector2(horizontalMove * moveSpeed, playerRB.velocity.y);
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            Jump();
-        }
+        
     }
 
     void FlipPlayer()
@@ -61,7 +68,7 @@ public class PlayerMove : MonoBehaviour
 
     void Jump()
     {
-        playerRB.AddForce(transform.up * jumpForce, ForceMode2D.Impulse); 
+        playerRB.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
     }
 
     void CheckGround()
@@ -73,5 +80,43 @@ public class PlayerMove : MonoBehaviour
         {
             animator.SetInteger("State", 2);
         }
+    }
+
+    public void RecountHP(int deltaHP)
+    {
+        currentHP += deltaHP;
+        if(deltaHP < 0)
+        {
+            StopCoroutine(OnHit());
+            isHit = true;
+            StartCoroutine(OnHit());
+        }
+        if(currentHP <= 0)
+        {
+            GetComponent<CapsuleCollider2D>().enabled =  false;
+            Invoke("Lose", 1.3f);
+        }
+    }
+
+    IEnumerator OnHit()
+    {
+        if(isHit)
+        {
+            spriteRenderer.color = new Color(1f, spriteRenderer.color.g - 0.1f, spriteRenderer.color.b - 0.1f);
+        }else
+        {
+            spriteRenderer.color = new Color(1f, spriteRenderer.color.g + 0.1f, spriteRenderer.color.b + 0.1f);
+        }
+        if (spriteRenderer.color.g == 1f)
+            StopCoroutine(OnHit());
+        if (spriteRenderer.color.g <= 0)
+            isHit = false;
+        yield return new WaitForSeconds (0.02f);
+        StartCoroutine(OnHit());
+    }
+
+    void Lose()
+    {
+        mein.GetComponent<Mein>().Lose();
     }
 }
