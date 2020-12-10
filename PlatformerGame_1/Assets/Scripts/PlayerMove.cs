@@ -11,7 +11,7 @@ public class PlayerMove : MonoBehaviour
     bool isGrounded;
     public Transform groundCheck;
     Animator animator;
-    int maxHP = 3;
+    int maxHP = 10;
     int currentHP;
     bool isHit = false;
     SpriteRenderer spriteRenderer;
@@ -85,7 +85,7 @@ public class PlayerMove : MonoBehaviour
     public void RecountHP(int deltaHP)
     {
         currentHP += deltaHP;
-        if(deltaHP < 0)
+        if(deltaHP < 0f)
         {
             StopCoroutine(OnHit());
             isHit = true;
@@ -102,16 +102,16 @@ public class PlayerMove : MonoBehaviour
     {
         if(isHit)
         {
-            spriteRenderer.color = new Color(1f, spriteRenderer.color.g - 0.1f, spriteRenderer.color.b - 0.1f);
+            spriteRenderer.color = new Color(1f, spriteRenderer.color.g - 0.04f, spriteRenderer.color.b - 0.04f);
         }else
         {
-            spriteRenderer.color = new Color(1f, spriteRenderer.color.g + 0.1f, spriteRenderer.color.b + 0.1f);
+            spriteRenderer.color = new Color(1f, spriteRenderer.color.g + 0.04f, spriteRenderer.color.b + 0.04f);
         }
         if (spriteRenderer.color.g == 1f)
             StopCoroutine(OnHit());
         if (spriteRenderer.color.g <= 0)
             isHit = false;
-        yield return new WaitForSeconds (0.02f);
+        yield return new WaitForSeconds(0.02f);
         StartCoroutine(OnHit());
     }
 

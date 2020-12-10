@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\EnemySaw.cs" />
     <Compile Include="Assets\Scripts\Mein.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
+    <Compile Include="Assets\Scripts\wormMove.cs" />
     <None Include="Assets\Sprites\Spritesheets\spritesheet_enemies.xml" />
     <None Include="Assets\Sprites\Spritesheets\spritesheet_ground.xml" />
     <None Include="Assets\Sprites\Spritesheets\spritesheet_items.xml" />
