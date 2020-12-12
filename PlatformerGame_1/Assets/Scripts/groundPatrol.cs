@@ -5,7 +5,7 @@ using UnityEngine;
 public class groundPatrol: MonoBehaviour
 {
     public Transform groundDetect;
-    float speed = 1f;
+    public float speed = 1f;
     public bool moveLeft = true;
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,7 @@ public class groundPatrol: MonoBehaviour
         transform.Translate(Vector3.left * speed * Time.deltaTime);
         RaycastHit2D groundInfo = Physics2D.Raycast(groundDetect.position, Vector3.down, 1f);
 
-        if(!groundInfo.collider)
+        if(!groundInfo.collider && !gameObject.GetComponent<Enemy>().isPlayerHit )
         {
             if(moveLeft)
             {

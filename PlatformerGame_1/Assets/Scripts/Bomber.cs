@@ -8,16 +8,13 @@ public class Bomber : MonoBehaviour
     public GameObject bullet;
     public float fireSpeed;
 
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(WaitToInstantiate());
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
     }
 
     IEnumerator WaitToInstantiate()
