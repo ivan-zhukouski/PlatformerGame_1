@@ -5,9 +5,9 @@ using UnityEngine;
 public class airPatrol : MonoBehaviour
 {
     public Transform[] points;
-    float speed = 2f;
+    public float speed = 2f;
     bool isGoing = true;
-    float waitTime = 2f;
+    public float waitTime;
 
     // Start is called before the first frame update
     void Start()

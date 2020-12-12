@@ -11,11 +11,12 @@ public class PlayerMove : MonoBehaviour
     bool isGrounded;
     public Transform groundCheck;
     Animator animator;
-    int maxHP = 10;
+    int maxHP = 3;
     int currentHP;
-    bool isHit = false;
     SpriteRenderer spriteRenderer;
     public Mein mein;
+    float waitTime = 0.02f;
+    Color defaultColor;
 
     void Start()
     {
@@ -23,6 +24,7 @@ public class PlayerMove : MonoBehaviour
         animator = GetComponent<Animator>();
         currentHP = maxHP;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        defaultColor = spriteRenderer.color;
     }
 
     
@@ -89,10 +91,8 @@ public class PlayerMove : MonoBehaviour
     public void RecountHP(int deltaHP)
     {
         currentHP += deltaHP;
-        if(deltaHP < 0f)
+        if(deltaHP < 0)
         {
-            StopCoroutine(OnHit());
-            isHit = true;
             StartCoroutine(OnHit());
         }
         if(currentHP <= 0)
@@ -104,19 +104,9 @@ public class PlayerMove : MonoBehaviour
 
     IEnumerator OnHit()
     {
-        if(isHit)
-        {
-            spriteRenderer.color = new Color(1f, spriteRenderer.color.g - 0.04f, spriteRenderer.color.b - 0.04f);
-        }else
-        {
-            spriteRenderer.color = new Color(1f, spriteRenderer.color.g + 0.04f, spriteRenderer.color.b + 0.04f);
-        }
-        if (spriteRenderer.color.g == 1f)
-            StopCoroutine(OnHit());
-        if (spriteRenderer.color.g <= 0)
-            isHit = false;
-        yield return new WaitForSeconds(0.02f);
-        StartCoroutine(OnHit());
+        spriteRenderer.color = new Color(1f, 0.3f, 0.3f);
+        yield return new WaitForSeconds(0.5f);
+        spriteRenderer.color = defaultColor;
     }
 
     void Lose()
