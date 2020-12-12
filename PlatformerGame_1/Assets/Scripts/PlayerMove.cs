@@ -30,16 +30,20 @@ public class PlayerMove : MonoBehaviour
     {
         horizontalMove = Input.GetAxis("Horizontal");
         CheckGround();
-        if(horizontalMove == 0 && isGrounded)
+        
+        if (horizontalMove == 0 && isGrounded)
         {
             animator.SetInteger("State", 0);
         } else
         {
             if (isGrounded)
             {
-                FlipPlayer();
                 animator.SetInteger("State", 1);
             }
+        }
+        if(!isGrounded || isGrounded)
+        {
+            FlipPlayer();
         }
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
