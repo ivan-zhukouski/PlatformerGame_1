@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     {
         if(collision.gameObject.CompareTag("Player") && !isPlayerHit)
         {
-            collision.gameObject.GetComponent<PlayerMove>().RecountHP(-1);
+            collision.gameObject.GetComponent<Player>().RecountHP(-1);
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * bouncyForce, ForceMode2D.Impulse);
         }
     }
