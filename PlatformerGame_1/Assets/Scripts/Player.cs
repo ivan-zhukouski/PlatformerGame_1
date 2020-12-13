@@ -19,6 +19,7 @@ public class Player: MonoBehaviour
     Color defaultColor;
     bool gotKey = false;
     bool canTP = true;
+    public bool isSwimming = false;
 
     void Start()
     {
@@ -33,21 +34,34 @@ public class Player: MonoBehaviour
     void Update()
     {
         horizontalMove = Input.GetAxis("Horizontal");
-        CheckGround();
+
         
-        if (horizontalMove == 0 && isGrounded)
+
+        if (isSwimming)
         {
-            animator.SetInteger("State", 0);
-        } else
-        {
-            if (isGrounded)
-            {
-                animator.SetInteger("State", 1);
-            }
+            isGrounded = true;
+            animator.SetInteger("State", 3);
+            if (horizontalMove != 0)
+                FlipPlayer();
         }
-        if(!isGrounded || isGrounded)
+        else
         {
-            FlipPlayer();
+            CheckGround();
+            if (horizontalMove == 0 && isGrounded)
+            {
+                animator.SetInteger("State", 0);
+            }
+            else
+            {
+                if (isGrounded)
+                {
+                    animator.SetInteger("State", 1);
+                }
+            }
+            if (!isGrounded || isGrounded)
+            {
+                FlipPlayer();
+            }
         }
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
