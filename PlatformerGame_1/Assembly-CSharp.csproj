@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\AdvancedAirPatrol.cs" />
     <Compile Include="Assets\Scripts\Bomber.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
+    <Compile Include="Assets\Scripts\ButtonRed.cs" />
     <Compile Include="Assets\Scripts\Camera.cs" />
     <Compile Include="Assets\Scripts\DestroyEnemy.cs" />
     <Compile Include="Assets\Scripts\DoorOpen.cs" />

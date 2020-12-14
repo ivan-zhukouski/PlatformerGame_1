@@ -8,6 +8,7 @@ TagManager:
   - Door
   - Ladder
   - Trampoline
+  - Weight
   layers:
   - Default
   - TransparentFX
