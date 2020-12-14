@@ -22,6 +22,7 @@ public class Player: MonoBehaviour
     bool canTP = true;
     public bool isSwimming = false;
     bool isClimbing = false;
+    int coins = 0;
 
     void Start()
     {
@@ -119,6 +120,9 @@ public class Player: MonoBehaviour
         if(deltaHP < 0)
         {
             StartCoroutine(OnHit());
+        } else if(currentHP > maxHP)
+        {
+            currentHP = maxHP;
         }
         if(currentHP <= 0)
         {
@@ -156,6 +160,24 @@ public class Player: MonoBehaviour
             }
             else if(gotKey)
                collision.gameObject.GetComponent<DoorOpen>().Unlock();
+        }
+        if (collision.gameObject.CompareTag("Coin"))
+        {
+            coins++;
+            Destroy(collision.gameObject);
+            print(coins);
+        }
+        if (collision.gameObject.CompareTag("Heart"))
+        {
+            RecountHP(1);
+            Destroy(collision.gameObject);
+            print("Heart " + currentHP);
+        }
+        if (collision.gameObject.CompareTag("BadMushroom"))
+        {
+            RecountHP(-1);
+            Destroy(collision.gameObject);
+            print("Heart " + currentHP);
         }
     }
 
