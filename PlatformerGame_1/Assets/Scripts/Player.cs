@@ -166,8 +166,7 @@ public class Player: MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        
-        if(collision.gameObject.CompareTag("Ladder") )
+        if (collision.gameObject.CompareTag("Ladder"))
         {
             isClimbing = true;
             playerRB.gravityScale = 0f;
@@ -190,5 +189,22 @@ public class Player: MonoBehaviour
             isClimbing = false;
             playerRB.gravityScale = 1f;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Trampoline"))
+        {
+            StartCoroutine(TrampolineAnimation(collision.gameObject.GetComponentInParent<Animator>()));
+            Debug.Log("jump");
+        }
+    }
+
+    IEnumerator TrampolineAnimation(Animator anim)
+    {
+        anim.SetBool("isJump", true);
+        yield return new WaitForSeconds(0.5f);
+        anim.SetBool("isJump", false);
+
     }
 }

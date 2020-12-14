@@ -7,6 +7,7 @@ TagManager:
   - Key
   - Door
   - Ladder
+  - Trampoline
   layers:
   - Default
   - TransparentFX
