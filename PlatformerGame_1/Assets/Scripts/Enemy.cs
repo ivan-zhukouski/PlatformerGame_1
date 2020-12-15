@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public float bouncyForce;
     public bool isPlayerHit = false;
+    public GameObject drop;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -18,6 +19,10 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Death()
     {
+        if(drop != null)
+        {
+            Instantiate(drop, transform.position, Quaternion.identity);
+        }
         gameObject.GetComponent<Animator>().SetBool("dead", true);
         isPlayerHit = true;
         transform.GetChild(0).GetComponent<Collider2D>().enabled = false;

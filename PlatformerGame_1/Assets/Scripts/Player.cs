@@ -26,6 +26,8 @@ public class Player: MonoBehaviour
     int coins = 0;
     public GameObject blueGem, greenGem;
     int gemCount = 0;
+    bool isBlueGem = false;
+    bool isGreenGem = false;
 
     void Start()
     {
@@ -89,10 +91,22 @@ public class Player: MonoBehaviour
         if(horizontalMove > 0)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 0);
+            if (gemCount == 2)
+            {
+                blueGem.transform.localPosition = new Vector3(-0.5f, 0.5f, blueGem.transform.localPosition.z);
+                greenGem.transform.localPosition = new Vector3(0.5f, 0.5f, greenGem.transform.localPosition.z);
+            }
+
         }
         if(horizontalMove < 0)
         {
             transform.localRotation = Quaternion.Euler(0, 180f, 0);
+            if(gemCount == 2)
+            {
+                blueGem.transform.localPosition = new Vector3(0.5f, 0.5f, blueGem.transform.localPosition.z);
+                greenGem.transform.localPosition = new Vector3(-0.5f, 0.5f, greenGem.transform.localPosition.z);
+            }
+            
         }
         
     }
@@ -179,13 +193,15 @@ public class Player: MonoBehaviour
             Destroy(collision.gameObject);
             print("Heart " + currentHP);
         }
-        if (collision.gameObject.CompareTag("BlueGem"))
+        if (collision.gameObject.CompareTag("BlueGem") && !isBlueGem)
         {
+            isBlueGem = true;
             Destroy(collision.gameObject);
             StartCoroutine(Immortal());
         }
-        if (collision.gameObject.CompareTag("GreenGem"))
+        if (collision.gameObject.CompareTag("GreenGem") && !isGreenGem )
         {
+            isGreenGem = true;
             Destroy(collision.gameObject);
             StartCoroutine(DoubleSpeed());
         }
@@ -259,6 +275,7 @@ public class Player: MonoBehaviour
         blueGem.SetActive(false);
         gemCount--;
         CheckGem(greenGem);
+        isBlueGem = false;
     }
 
     IEnumerator DoubleSpeed()
@@ -277,6 +294,7 @@ public class Player: MonoBehaviour
         gemCount--;
         greenGem.SetActive(false);
         CheckGem(blueGem);
+        isGreenGem = false;
     }
 
     void CheckGem(GameObject obj)
