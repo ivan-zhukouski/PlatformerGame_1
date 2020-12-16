@@ -14,6 +14,7 @@ TagManager:
   - BadMushroom
   - BlueGem
   - GreenGem
+  - Ground
   layers:
   - Default
   - TransparentFX
