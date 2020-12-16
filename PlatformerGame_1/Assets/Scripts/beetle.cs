@@ -8,6 +8,7 @@ public class beetle : MonoBehaviour
     bool isHidden = true;
     bool isWaiting = false;
     float speed = 3f;
+    public float waiting;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +40,7 @@ public class beetle : MonoBehaviour
     }
     IEnumerator Waiting()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(waiting);
         isWaiting = false;
     }
 }
