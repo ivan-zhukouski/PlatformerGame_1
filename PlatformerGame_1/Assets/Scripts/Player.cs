@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class Player: MonoBehaviour
 {
@@ -28,6 +29,15 @@ public class Player: MonoBehaviour
     int gemCount = 0;
     bool isBlueGem = false;
     bool isGreenGem = false;
+    [SerializeField] GameObject globalLighting;
+    [SerializeField] GameObject doorOneTorch;
+    [SerializeField] GameObject doorTwoTorch;
+    [SerializeField] GameObject hideRoomOne;
+    [SerializeField] GameObject hideRoomTwo;
+    [SerializeField] GameObject hideWaterCave;
+    [SerializeField] GameObject waterTorches;
+
+
 
     void Start()
     {
@@ -205,7 +215,62 @@ public class Player: MonoBehaviour
             Destroy(collision.gameObject);
             StartCoroutine(DoubleSpeed());
         }
+        if(collision.gameObject.CompareTag("DoorOneTrigger"))
+        {
+            doorOneTorch.gameObject.SetActive(true);
+            hideRoomOne.gameObject.SetActive(false);
+            StartCoroutine(GlobalLightOff(globalLighting.gameObject.GetComponent<Light2D>(), 0.02f));
+        }
+        if(collision.gameObject.CompareTag("DoorTwoTrigger"))
+        {
+            doorTwoTorch.gameObject.SetActive(true);
+            hideRoomTwo.gameObject.SetActive(false);
+            StartCoroutine(GlobalLightOff(globalLighting.gameObject.GetComponent<Light2D>(), 0.02f));
+        }
+        if(collision.gameObject.CompareTag("LightOn"))
+        {
+            if(globalLighting.gameObject.GetComponent<Light2D>().intensity <0.8f)
+            {
+                StartCoroutine(GlobalLightOn(globalLighting.gameObject.GetComponent<Light2D>(), 0.02f));
+            }
+            
+        }
+        if (collision.gameObject.CompareTag("WaterCaveTrigger"))
+        {
 
+            hideWaterCave.gameObject.SetActive(false);
+            waterTorches.gameObject.SetActive(true);
+          
+            StartCoroutine(GlobalLightOff(globalLighting.gameObject.GetComponent<Light2D>(), 0.02f));
+        }
+
+    }
+    IEnumerator GlobalLightOff(Light2D lg, float time)
+    {
+        lg.intensity -= time * 2;
+        
+        yield return new WaitForSeconds(time);
+        if (lg.intensity > 0)
+        {
+            StartCoroutine(GlobalLightOff(lg, time));
+        }
+        else
+        {
+            StopCoroutine(GlobalLightOff(lg, time));
+        }
+        print(lg.intensity);
+        
+       
+    }
+    IEnumerator GlobalLightOn(Light2D lg, float time)
+    {
+        lg.intensity += time * 2;
+
+        yield return new WaitForSeconds(time);
+        if (lg.intensity < 0.8f)
+        {
+            StartCoroutine(GlobalLightOn(lg, time));
+        }
     }
 
     IEnumerator WaitToTeleport()
