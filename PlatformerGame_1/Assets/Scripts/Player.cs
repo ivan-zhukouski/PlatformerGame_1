@@ -41,7 +41,6 @@ public class Player: MonoBehaviour
     int stars = 0;
 
 
-
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
@@ -51,7 +50,6 @@ public class Player: MonoBehaviour
         defaultColor = spriteRenderer.color;
     }
 
-    
     void Update()
     {
         horizontalMove = Input.GetAxis("Horizontal");
@@ -94,6 +92,7 @@ public class Player: MonoBehaviour
         playerRB.velocity = new Vector2(horizontalMove * moveSpeed, playerRB.velocity.y);
         
     }
+
     void Climbing()
     {
         playerRB.velocity = new Vector2(playerRB.velocity.x, verticalMove * moveSpeed * 0.5f);
@@ -255,6 +254,7 @@ public class Player: MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
     IEnumerator GlobalLightOff(Light2D lg, float time)
     {
         lg.intensity -= time * 2;
@@ -272,6 +272,7 @@ public class Player: MonoBehaviour
         
        
     }
+
     IEnumerator GlobalLightOn(Light2D lg, float time)
     {
         lg.intensity += time * 2;

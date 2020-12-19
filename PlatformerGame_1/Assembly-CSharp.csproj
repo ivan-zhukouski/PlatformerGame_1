@@ -71,6 +71,7 @@
     <Compile Include="Assets\Scripts\DestroyEnemy.cs" />
     <Compile Include="Assets\Scripts\DoorOpen.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\FlyBridge.cs" />
     <Compile Include="Assets\Scripts\Mein.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Water.cs" />
