@@ -36,6 +36,9 @@ public class Player: MonoBehaviour
     [SerializeField] GameObject hideRoomTwo;
     [SerializeField] GameObject hideWaterCave;
     [SerializeField] GameObject waterTorches;
+    [SerializeField] GameObject hideCave;
+    [SerializeField] GameObject caveTorches;
+    int stars = 0;
 
 
 
@@ -233,17 +236,24 @@ public class Player: MonoBehaviour
             {
                 StartCoroutine(GlobalLightOn(globalLighting.gameObject.GetComponent<Light2D>(), 0.02f));
             }
-            
         }
         if (collision.gameObject.CompareTag("WaterCaveTrigger"))
         {
-
             hideWaterCave.gameObject.SetActive(false);
             waterTorches.gameObject.SetActive(true);
-          
             StartCoroutine(GlobalLightOff(globalLighting.gameObject.GetComponent<Light2D>(), 0.02f));
         }
-
+        if (collision.gameObject.CompareTag("CaveTrigger"))
+        {
+            hideCave.gameObject.SetActive(false);
+            caveTorches.gameObject.SetActive(true);
+            StartCoroutine(GlobalLightOff(globalLighting.gameObject.GetComponent<Light2D>(), 0.02f));
+        }
+        if(collision.gameObject.CompareTag("Star"))
+        {
+            stars++;
+            Destroy(collision.gameObject);
+        }
     }
     IEnumerator GlobalLightOff(Light2D lg, float time)
     {
