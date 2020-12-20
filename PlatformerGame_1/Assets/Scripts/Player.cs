@@ -16,7 +16,7 @@ public class Player: MonoBehaviour
     int maxHP = 3;
     int currentHP;
     SpriteRenderer spriteRenderer;
-    public Mein mein;
+    public Main mein;
     float waitTime = 0.02f;
     Color defaultColor;
     bool gotKey = false;
@@ -166,7 +166,7 @@ public class Player: MonoBehaviour
 
     void Lose()
     {
-        mein.GetComponent<Mein>().Lose();
+        mein.GetComponent<Main>().LoseGame();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -394,5 +394,15 @@ public class Player: MonoBehaviour
         {
             StartCoroutine(GemInvis(spr, time));
         }
+    }
+
+    public int GetCoins()
+    {
+        return coins;
+    }
+
+    public int GetHP()
+    {
+        return currentHP;
     }
 }
