@@ -191,19 +191,16 @@ public class Player: MonoBehaviour
         {
             coins++;
             Destroy(collision.gameObject);
-            print(coins);
         }
         if (collision.gameObject.CompareTag("Heart"))
         {
             RecountHP(1);
             Destroy(collision.gameObject);
-            print("Heart " + currentHP);
         }
         if (collision.gameObject.CompareTag("BadMushroom"))
         {
             RecountHP(-1);
             Destroy(collision.gameObject);
-            print("Heart " + currentHP);
         }
         if (collision.gameObject.CompareTag("BlueGem") && !isBlueGem)
         {
@@ -323,7 +320,6 @@ public class Player: MonoBehaviour
         if(collision.gameObject.CompareTag("Trampoline"))
         {
             StartCoroutine(TrampolineAnimation(collision.gameObject.GetComponentInParent<Animator>()));
-            Debug.Log("jump");
         }
     }
 
