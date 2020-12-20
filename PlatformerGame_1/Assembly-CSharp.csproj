@@ -72,8 +72,10 @@
     <Compile Include="Assets\Scripts\DoorOpen.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\FlyBridge.cs" />
+    <Compile Include="Assets\Scripts\MagicBridge.cs" />
     <Compile Include="Assets\Scripts\Mein.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\Quagmire.cs" />
     <Compile Include="Assets\Scripts\Water.cs" />
     <Compile Include="Assets\Scripts\airPatrol.cs" />
     <Compile Include="Assets\Scripts\beetle.cs" />
