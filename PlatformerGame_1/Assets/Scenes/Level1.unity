@@ -11481,7 +11481,7 @@ MonoBehaviour:
   winPanel: {fileID: 1450989483}
   losePanel: {fileID: 1846962984}
   timeSettings: 2
-  countdawn: 10
+  countdawn: 65
 --- !u!1 &620174173
 GameObject:
   m_ObjectHideFlags: 0

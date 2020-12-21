@@ -37,15 +37,17 @@ public class Main : MonoBehaviour
         coinText.text = player.GetCoins().ToString();
         CheckHP();
 
-        if((int)timeSettings == 1)
+        if ((int)timeSettings == 1)
         {
             timer += Time.deltaTime;
             timerText.text = timer.ToString("F2").Replace(",", ":");
-        } else if((int)timeSettings == 2)
+        }
+        else if ((int)timeSettings == 2)
         {
             timer -= Time.deltaTime;
-            timerText.text = timer.ToString("F2").Replace(",", ":");
-            if(timer <= 0)
+            //timerText.text = timer.ToString("F2").Replace(",", ":");
+            timerText.text = ((int)timer / 60).ToString() + ":" + ((int)timer -((int)timer / 60) * 60).ToString("D2");
+            if (timer <= 0)
             {
                 LoseGame();
             }
@@ -54,9 +56,6 @@ public class Main : MonoBehaviour
         {
             timerText.gameObject.SetActive(false);
         }
-
-       
-
     }
 
     void CheckHP()
