@@ -8,11 +8,16 @@ public class Main : MonoBehaviour
 {
     public Player player;
     public Text coinText;
+    public Text timerText;
     public Image[] hearts;
     public Sprite isLife, nonLife, halfLife;
     public GameObject pausePanel;
     public GameObject winPanel;
     public GameObject losePanel;
+    public TimeSettings timeSettings;
+    float timer = 0f;
+    public float countdawn;
+
 
     public void ReloadGame()
     {
@@ -20,10 +25,38 @@ public class Main : MonoBehaviour
         player.enabled = true;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    void Start()
+    {
+        if ((int)timeSettings == 2)
+            timer = countdawn;
+    }
+
     void Update()
     {
         coinText.text = player.GetCoins().ToString();
         CheckHP();
+
+        if((int)timeSettings == 1)
+        {
+            timer += Time.deltaTime;
+            timerText.text = timer.ToString("F2").Replace(",", ":");
+        } else if((int)timeSettings == 2)
+        {
+            timer -= Time.deltaTime;
+            timerText.text = timer.ToString("F2").Replace(",", ":");
+            if(timer <= 0)
+            {
+                LoseGame();
+            }
+        }
+        else
+        {
+            timerText.gameObject.SetActive(false);
+        }
+
+       
+
     }
 
     void CheckHP()
@@ -70,6 +103,7 @@ public class Main : MonoBehaviour
         {
             PlayerPrefs.SetInt("coins", player.GetCoins());
         }
+
     }
 
     public void LoseGame()
@@ -93,3 +127,11 @@ public class Main : MonoBehaviour
         player.enabled = true;
     }
 }
+
+public enum TimeSettings
+{
+    None,
+    Stopwatch,
+    Timer
+}
+    
