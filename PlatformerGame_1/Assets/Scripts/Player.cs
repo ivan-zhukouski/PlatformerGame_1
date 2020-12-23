@@ -41,6 +41,8 @@ public class Player: MonoBehaviour
     [SerializeField] GameObject caveTorches;
     int stars = 0;
 
+    public Inventory inventory;
+
 
     void Start()
     {
@@ -175,6 +177,7 @@ public class Player: MonoBehaviour
         if(collision.gameObject.CompareTag("Key"))
         {
             gotKey = true;
+            inventory.Add_key();
             Destroy(collision.gameObject);
         }
         if(collision.gameObject.CompareTag("Door"))
@@ -195,7 +198,7 @@ public class Player: MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Heart"))
         {
-            RecountHP(1);
+            inventory.Add_hp();
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.CompareTag("BadMushroom"))
@@ -206,14 +209,14 @@ public class Player: MonoBehaviour
         if (collision.gameObject.CompareTag("BlueGem") && !isBlueGem)
         {
             isBlueGem = true;
+            inventory.Add_blueGem();
             Destroy(collision.gameObject);
-            StartCoroutine(Immortal());
         }
         if (collision.gameObject.CompareTag("GreenGem") && !isGreenGem )
         {
             isGreenGem = true;
+            inventory.Add_greenGem();
             Destroy(collision.gameObject);
-            StartCoroutine(DoubleSpeed());
         }
         if(collision.gameObject.CompareTag("DoorOneTrigger"))
         {
@@ -401,5 +404,15 @@ public class Player: MonoBehaviour
     public int GetHP()
     {
         return currentHP;
+    }
+
+    public void ActiveGreenGem()
+    {
+        StartCoroutine(DoubleSpeed());
+    }
+
+    public void ActiveBlueGem()
+    {
+        StartCoroutine(Immortal());
     }
 }
