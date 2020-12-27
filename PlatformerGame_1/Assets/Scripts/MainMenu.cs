@@ -22,6 +22,18 @@ public class MainMenu : MonoBehaviour
                     levels[i].interactable = false;
             }
         }
+        if(!PlayerPrefs.HasKey("hp"))
+        {
+            PlayerPrefs.SetInt("hp", 0);
+        }
+        if (!PlayerPrefs.HasKey("blueGem"))
+        {
+            PlayerPrefs.SetInt("blueGem", 0);
+        }
+        if (!PlayerPrefs.HasKey("greenGem"))
+        {
+            PlayerPrefs.SetInt("greenGem", 0);
+        }
     }
 
     private void Update()
@@ -41,4 +53,33 @@ public class MainMenu : MonoBehaviour
     {
         PlayerPrefs.DeleteAll();
     }
+
+    public void Buy_hp(int coins)
+    {
+        if(PlayerPrefs.GetInt("coins") >= coins)
+        {
+            PlayerPrefs.SetInt("hp", PlayerPrefs.GetInt("hp") + 1);
+            PlayerPrefs.SetInt("coins", PlayerPrefs.GetInt("coins") - coins);
+        }
+    }
+
+    public void Buy_blueGem(int coins)
+    {
+        if (PlayerPrefs.GetInt("coins") >= coins)
+        {
+            PlayerPrefs.SetInt("blueGem", PlayerPrefs.GetInt("blueGem") + 1);
+            PlayerPrefs.SetInt("coins", PlayerPrefs.GetInt("coins") - coins);
+        }
+    }
+
+    public void Buy_greenGem(int coins)
+    {
+        if (PlayerPrefs.GetInt("coins") >= coins)
+        {
+            PlayerPrefs.SetInt("greenGem", PlayerPrefs.GetInt("greenGem") + 1);
+            PlayerPrefs.SetInt("coins", PlayerPrefs.GetInt("coins") - coins);
+        }
+    }
+
+
 }

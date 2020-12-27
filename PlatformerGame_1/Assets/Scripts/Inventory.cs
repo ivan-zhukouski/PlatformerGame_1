@@ -11,6 +11,28 @@ public class Inventory : MonoBehaviour
     public Image heartImg, blueGemImg, greenGemImg, keyImg;
     public Player player;
 
+    void Start()
+    {
+       if(PlayerPrefs.GetInt("hp") > 0)
+        {
+            hp = PlayerPrefs.GetInt("hp");
+            heartImg.sprite = is_hp;
+            heartImg.transform.GetChild(0).GetComponent<Image>().sprite = numbers[hp];
+        }
+        if (PlayerPrefs.GetInt("blueGem") > 0)
+        {
+            blueGem = PlayerPrefs.GetInt("blueGem");
+            blueGemImg.sprite = is_blueGem;
+            blueGemImg.transform.GetChild(0).GetComponent<Image>().sprite = numbers[blueGem];
+        }
+        if (PlayerPrefs.GetInt("greenGem") > 0)
+        {
+            greenGem = PlayerPrefs.GetInt("greenGem");
+            greenGemImg.sprite = is_greenGem;
+            greenGemImg.transform.GetChild(0).GetComponent<Image>().sprite = numbers[greenGem];
+        }
+    }
+
     public void Add_hp()
     {
         hp++;
@@ -53,7 +75,7 @@ public class Inventory : MonoBehaviour
     }
     public void Use_GreenGem()
     {
-        if (greenGem > 0)
+        if (greenGem > 0 && !player.isGreenGem)
         {
             greenGem--;
             greenGemImg.transform.GetChild(0).GetComponent<Image>().sprite = numbers[greenGem];
@@ -68,7 +90,7 @@ public class Inventory : MonoBehaviour
 
     public void Use_BlueGem()
     {
-        if (blueGem > 0)
+        if (blueGem > 0 && !player.isBlueGem)
         {
             blueGem--;
             blueGemImg.transform.GetChild(0).GetComponent<Image>().sprite = numbers[blueGem];
@@ -79,5 +101,11 @@ public class Inventory : MonoBehaviour
                 blueGemImg.sprite = no_blueGem;
             }
         }
+    }
+    public void RecountItems()
+    {
+        PlayerPrefs.SetInt("hp", hp);
+        PlayerPrefs.SetInt("blueGem", blueGem);
+        PlayerPrefs.SetInt("greenGem", greenGem);
     }
 }

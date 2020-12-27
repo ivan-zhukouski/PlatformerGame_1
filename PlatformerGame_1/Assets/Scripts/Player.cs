@@ -17,7 +17,7 @@ public class Player: MonoBehaviour
     int maxHP = 3;
     int currentHP;
     SpriteRenderer spriteRenderer;
-    public Main mein;
+    public Main main;
     float waitTime = 0.02f;
     Color defaultColor;
     bool gotKey = false;
@@ -28,8 +28,8 @@ public class Player: MonoBehaviour
     int coins = 0;
     public GameObject blueGem, greenGem;
     int gemCount = 0;
-    bool isBlueGem = false;
-    bool isGreenGem = false;
+    public bool isBlueGem = false;
+    public bool isGreenGem = false;
     [SerializeField] GameObject globalLighting;
     [SerializeField] GameObject doorOneTorch;
     [SerializeField] GameObject doorTwoTorch;
@@ -169,7 +169,7 @@ public class Player: MonoBehaviour
 
     void Lose()
     {
-        mein.GetComponent<Main>().LoseGame();
+        main.GetComponent<Main>().LoseGame();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -206,15 +206,13 @@ public class Player: MonoBehaviour
             RecountHP(-1);
             Destroy(collision.gameObject);
         }
-        if (collision.gameObject.CompareTag("BlueGem") && !isBlueGem)
+        if (collision.gameObject.CompareTag("BlueGem"))
         {
-            isBlueGem = true;
             inventory.Add_blueGem();
             Destroy(collision.gameObject);
         }
-        if (collision.gameObject.CompareTag("GreenGem") && !isGreenGem )
+        if (collision.gameObject.CompareTag("GreenGem"))
         {
-            isGreenGem = true;
             inventory.Add_greenGem();
             Destroy(collision.gameObject);
         }
@@ -253,6 +251,10 @@ public class Player: MonoBehaviour
         {
             stars++;
             Destroy(collision.gameObject);
+        }
+        if(collision.gameObject.CompareTag("DeadZone"))
+        {
+            Lose();
         }
     }
 
@@ -337,6 +339,7 @@ public class Player: MonoBehaviour
 
     IEnumerator Immortal()
     {
+        isBlueGem = true;
         gemCount++;
         canHit = false;
         blueGem.SetActive(true);
@@ -356,6 +359,7 @@ public class Player: MonoBehaviour
 
     IEnumerator DoubleSpeed()
     {
+        isGreenGem = true;
         gemCount++;
         greenGem.SetActive(true);
         moveSpeed *= 2;

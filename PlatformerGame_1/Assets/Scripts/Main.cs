@@ -17,19 +17,16 @@ public class Main : MonoBehaviour
     public TimeSettings timeSettings;
     float timer = 0f;
     public float countdawn;
+    public GameObject invetory;
+    public GameObject inventoryScript;
 
-
-    public void ReloadGame()
-    {
-        Time.timeScale = 1;
-        player.enabled = true;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
 
     void Start()
     {
         if ((int)timeSettings == 2)
             timer = countdawn;
+
+        Time.timeScale = 1;
     }
 
     void Update()
@@ -103,6 +100,8 @@ public class Main : MonoBehaviour
             PlayerPrefs.SetInt("coins", player.GetCoins());
         }
 
+        invetory.SetActive(false);
+        inventoryScript.GetComponent<Inventory>().RecountItems();
     }
 
     public void LoseGame()
@@ -110,6 +109,18 @@ public class Main : MonoBehaviour
         Time.timeScale = 0;
         player.enabled = false;
         losePanel.SetActive(true);
+
+        invetory.SetActive(false);
+        //inventoryScript.GetComponent<Inventory>().RecountItems();
+        Debug.Log(Time.timeScale + " lose");
+    }
+
+    public void ReloadGame()
+    {
+        Time.timeScale = 1;
+        player.enabled = true;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log(Time.timeScale + " reload");
     }
 
     public void NextLevel()

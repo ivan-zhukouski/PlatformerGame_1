@@ -21,6 +21,7 @@ TagManager:
   - WaterCaveTrigger
   - CaveTrigger
   - Star
+  - DeadZone
   layers:
   - Default
   - TransparentFX
