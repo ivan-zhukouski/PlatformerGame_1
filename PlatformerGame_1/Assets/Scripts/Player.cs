@@ -42,6 +42,8 @@ public class Player: MonoBehaviour
     int stars = 0;
 
     public Inventory inventory;
+    public SoundEffector soundEffector;
+
 
 
     void Start()
@@ -128,6 +130,7 @@ public class Player: MonoBehaviour
 
     void Jump()
     {
+        soundEffector.Play_jumpSound();
         playerRB.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
     }
 
@@ -169,6 +172,7 @@ public class Player: MonoBehaviour
 
     void Lose()
     {
+        soundEffector.Play_loseSound();
         main.GetComponent<Main>().LoseGame();
     }
 
@@ -193,6 +197,7 @@ public class Player: MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Coin"))
         {
+            soundEffector.Play_coinSound();
             coins++;
             Destroy(collision.gameObject);
         }

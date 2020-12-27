@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Quagmire.cs" />
+    <Compile Include="Assets\Scripts\SoundEffector.cs" />
     <Compile Include="Assets\Scripts\Water.cs" />
     <Compile Include="Assets\Scripts\WinLevel.cs" />
     <Compile Include="Assets\Scripts\airPatrol.cs" />
@@ -88,6 +89,8 @@
     <None Include="Assets\UI\uipack_fixed\Spritesheet\blueSheet.xml" />
     <None Include="Assets\UI\gameicons\Spritesheet\sheet_black2x.xml" />
     <None Include="Assets\Sprites\Spritesheets\spritesheet_items.xml" />
+    <None Include="Assets\Sounds\kenney_interfacesounds\License.txt" />
+    <None Include="Assets\Sounds\kenney_voiceoverpack\License.txt" />
     <None Include="Assets\Sprites\Spritesheets\spritesheet_complete.xml" />
     <None Include="Assets\UI\gameicons\Spritesheet\sheet_white1x.xml" />
     <None Include="Assets\UI\uipack_fixed\Spritesheet\greenSheet.xml" />
@@ -101,6 +104,7 @@
     <None Include="Assets\Sprites\Spritesheets\spritesheet_tiles.xml" />
     <None Include="Assets\Sprites\Spritesheets\spritesheet_hud.xml" />
     <None Include="Assets\UI\uipack_fixed\Spritesheet\greySheet.xml" />
+    <None Include="Assets\Sounds\kenney_voiceoverpack\Credits.txt" />
     <None Include="Assets\UI\uipack_fixed\license.txt" />
     <None Include="Assets\UI\gameicons\license.txt" />
     <Reference Include="UnityEngine">

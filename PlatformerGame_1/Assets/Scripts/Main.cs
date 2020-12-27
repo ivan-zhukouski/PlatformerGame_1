@@ -19,7 +19,7 @@ public class Main : MonoBehaviour
     public float countdawn;
     public GameObject invetory;
     public GameObject inventoryScript;
-
+    public SoundEffector soundEffector;
 
     void Start()
     {
@@ -84,6 +84,7 @@ public class Main : MonoBehaviour
 
     public void FinishLevel()
     {
+        soundEffector.Play_winSound();
         Time.timeScale = 0;
         player.enabled = false;
         winPanel.SetActive(true);
