@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class SoundEffector : MonoBehaviour
 {
-    public AudioSource audioSource;
+    public AudioSource soundsAudioSource, musicAudioSource;
     public AudioClip jumpSound, coinSound, loseSound, winSound;
-   
+
+    void Start()
+    {
+        soundsAudioSource.volume = (float)PlayerPrefs.GetInt("sVolume") / 9;
+        musicAudioSource.volume = (float)PlayerPrefs.GetInt("mVolume") / 9;
+    }
+
     public void Play_jumpSound()
     {
-        audioSource.PlayOneShot(jumpSound);
+        soundsAudioSource.PlayOneShot(jumpSound);
     }
 
     public void Play_coinSound()
     {
-        audioSource.PlayOneShot(coinSound);
+        soundsAudioSource.PlayOneShot(coinSound);
     }
 
     public void Play_loseSound()
     {
-        audioSource.PlayOneShot(loseSound);
+        soundsAudioSource.PlayOneShot(loseSound);
     }
 
     public void Play_winSound()
     {
-        audioSource.PlayOneShot(winSound);
+        soundsAudioSource.PlayOneShot(winSound);
     }
 }

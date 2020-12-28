@@ -9,6 +9,8 @@ public class MainMenu : MonoBehaviour
     public Button[] levels;
 
     public Text coinText;
+    public Slider mVolume, sVolume;
+    public Text mVolumText, sVolumeText;
 
     private void Start()
     {
@@ -34,10 +36,28 @@ public class MainMenu : MonoBehaviour
         {
             PlayerPrefs.SetInt("greenGem", 0);
         }
+
+        if(!PlayerPrefs.HasKey("mVolume"))
+        {
+            PlayerPrefs.SetInt("mVolume", 3);
+        }
+        if (!PlayerPrefs.HasKey("sVolume"))
+        {
+            PlayerPrefs.SetInt("sVolume", 5);
+        }
+
+        mVolume.value = (int)PlayerPrefs.GetInt("mVolume");
+        sVolume.value = (int)PlayerPrefs.GetInt("sVolume");
     }
 
     private void Update()
     {
+        PlayerPrefs.SetInt("mVolume", (int)mVolume.value);
+        PlayerPrefs.SetInt("sVolume", (int)sVolume.value);
+
+        mVolumText.text = PlayerPrefs.GetInt("mVolume").ToString();
+        sVolumeText.text = PlayerPrefs.GetInt("sVolume").ToString();
+
         if (PlayerPrefs.HasKey("coins"))
             coinText.text = PlayerPrefs.GetInt("coins").ToString();
         else
@@ -73,7 +93,7 @@ public class MainMenu : MonoBehaviour
     }
 
     public void Buy_greenGem(int coins)
-    {
+    {   
         if (PlayerPrefs.GetInt("coins") >= coins)
         {
             PlayerPrefs.SetInt("greenGem", PlayerPrefs.GetInt("greenGem") + 1);
