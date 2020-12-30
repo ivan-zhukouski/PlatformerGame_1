@@ -43,6 +43,7 @@ public class Player: MonoBehaviour
 
     public Inventory inventory;
     public SoundEffector soundEffector;
+    public Joystick joystick;
 
 
 
@@ -57,20 +58,21 @@ public class Player: MonoBehaviour
 
     void Update()
     {
-        horizontalMove = Input.GetAxis("Horizontal");
+        horizontalMove = joystick.Horizontal;
         verticalMove = Input.GetAxis("Vertical");
 
         if (isSwimming && !isClimbing)
         {
             isGrounded = true;
             animator.SetInteger("State", 3);
-            if (horizontalMove != 0)
+
+            if (horizontalMove >= 0.2f || horizontalMove <= -0.2f)
                 FlipPlayer();
         }
         else
         {
             CheckGround();
-            if (horizontalMove == 0 && isGrounded && !isClimbing)
+            if (horizontalMove < 0.2f && horizontalMove > -0.2f && isGrounded && !isClimbing)
             {
                 animator.SetInteger("State", 0);
             }
@@ -94,8 +96,15 @@ public class Player: MonoBehaviour
 
     void FixedUpdate()
     {
-        playerRB.velocity = new Vector2(horizontalMove * moveSpeed, playerRB.velocity.y);
-        
+        if(horizontalMove >= 0.2f)
+        playerRB.velocity = new Vector2(moveSpeed, playerRB.velocity.y);
+        else if (horizontalMove <= -0.2f)
+            playerRB.velocity = new Vector2(-moveSpeed, playerRB.velocity.y);
+        else
+        {
+            playerRB.velocity = new Vector2(0f, playerRB.velocity.y);
+        }
+
     }
 
     void Climbing()
@@ -105,7 +114,7 @@ public class Player: MonoBehaviour
 
     void FlipPlayer()
     {
-        if(horizontalMove > 0)
+        if(horizontalMove >= 0.2f)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 0);
             if (gemCount == 2)
@@ -115,7 +124,7 @@ public class Player: MonoBehaviour
             }
 
         }
-        if(horizontalMove < 0)
+        if(horizontalMove <= -0.2f)
         {
             transform.localRotation = Quaternion.Euler(0, 180f, 0);
             if(gemCount == 2)
@@ -128,10 +137,13 @@ public class Player: MonoBehaviour
         
     }
 
-    void Jump()
+    public void Jump()
     {
-        soundEffector.Play_jumpSound();
-        playerRB.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+        if(isGrounded && !isClimbing)
+        {
+            soundEffector.Play_jumpSound();
+            playerRB.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+        }
     }
 
     void CheckGround()

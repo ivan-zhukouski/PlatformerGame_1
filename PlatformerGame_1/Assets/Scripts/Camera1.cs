@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class Camera1 : MonoBehaviour
 {
     public Transform playerTr;
     float speed = 3f;
