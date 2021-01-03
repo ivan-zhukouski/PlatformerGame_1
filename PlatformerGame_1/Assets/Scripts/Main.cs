@@ -10,7 +10,7 @@ public class Main : MonoBehaviour
     public Text coinText;
     public Text timerText;
     public Image[] hearts;
-    public Sprite isLife, nonLife, halfLife;
+    public Sprite isLife, nonLife, halfLife, isStar, nonStar;
     public GameObject pausePanel;
     public GameObject winPanel;
     public GameObject losePanel;
@@ -20,6 +20,7 @@ public class Main : MonoBehaviour
     public GameObject invetory;
     public GameObject inventoryScript;
     public SoundEffector soundEffector;
+    public Image[] stars;
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class Main : MonoBehaviour
     {
         coinText.text = player.GetCoins().ToString();
         CheckHP();
+        CheckStars();
 
         if ((int)timeSettings == 1)
         {
@@ -59,12 +61,23 @@ public class Main : MonoBehaviour
     {
         for(int i = 0; i < hearts.Length; i++)
         {
-            if (player.GetHP() > i)
+            if(player.GetHP() > i)
             {
                 hearts[i].sprite = isLife;
             }
             else
                 hearts[i].sprite = nonLife;
+        }
+    }
+
+    void CheckStars()
+    {
+        for(int i = 0; i < stars.Length; i++)
+        {
+            if (player.GetStar() > i)
+                stars[i].sprite = isStar;
+            else
+                stars[i].sprite = nonStar;
         }
     }
     
@@ -99,6 +112,14 @@ public class Main : MonoBehaviour
         else
         {
             PlayerPrefs.SetInt("coins", player.GetCoins());
+        }
+        if(PlayerPrefs.HasKey("Star"))
+        {
+            PlayerPrefs.SetInt("Star", PlayerPrefs.GetInt("Star") + player.GetStar());
+        }
+        else
+        {
+            PlayerPrefs.SetInt("Star", player.GetStar());
         }
 
         invetory.SetActive(false);

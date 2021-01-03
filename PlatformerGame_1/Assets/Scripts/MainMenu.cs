@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
 {
     public Button[] levels;
 
-    public Text coinText;
+    public Text coinText, starText;
     public Slider mVolume, sVolume;
     public Text mVolumText, sVolumeText;
 
@@ -62,6 +62,11 @@ public class MainMenu : MonoBehaviour
             coinText.text = PlayerPrefs.GetInt("coins").ToString();
         else
             coinText.text = "0";
+
+        if (PlayerPrefs.HasKey("Star"))
+            starText.text = PlayerPrefs.GetInt("Star").ToString();
+        else
+            starText.text = "0";
     }
 
     public void LoadLevel(int index)

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SoundEffector : MonoBehaviour
 {
     public AudioSource soundsAudioSource, musicAudioSource;
-    public AudioClip jumpSound, coinSound, loseSound, winSound;
+    public AudioClip jumpSound, coinSound, loseSound, winSound, starSound;
 
     void Start()
     {
@@ -31,5 +31,9 @@ public class SoundEffector : MonoBehaviour
     public void Play_winSound()
     {
         soundsAudioSource.PlayOneShot(winSound);
+    }
+    public void Play_starSound()
+    {
+        soundsAudioSource.PlayOneShot(starSound);
     }
 }

@@ -16,6 +16,7 @@ public class Player: MonoBehaviour
     Animator animator;
     int maxHP = 3;
     int currentHP;
+    int currentStar = 0;
     SpriteRenderer spriteRenderer;
     public Main main;
     float waitTime = 0.02f;
@@ -46,7 +47,6 @@ public class Player: MonoBehaviour
     public Joystick joystick;
 
 
-
     void Start()
     {
         playerRB = GetComponent<Rigidbody2D>();
@@ -54,12 +54,17 @@ public class Player: MonoBehaviour
         currentHP = maxHP;
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultColor = spriteRenderer.color;
+
+        if(!PlayerPrefs.HasKey("Star"))
+        {
+            PlayerPrefs.SetInt("Star", currentStar);
+        }
     }
 
     void Update()
     {
         horizontalMove = joystick.Horizontal;
-        verticalMove = Input.GetAxis("Vertical");
+        verticalMove = joystick.Vertical;
 
         if (isSwimming && !isClimbing)
         {
@@ -87,10 +92,6 @@ public class Player: MonoBehaviour
             {
                 FlipPlayer();
             }
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isClimbing)
-        {
-            Jump();
         }
     }
 
@@ -141,8 +142,8 @@ public class Player: MonoBehaviour
     {
         if(isGrounded && !isClimbing)
         {
-            soundEffector.Play_jumpSound();
             playerRB.AddForce(Vector3.up * jumpForce, ForceMode2D.Impulse);
+            soundEffector.Play_jumpSound();
         }
     }
 
@@ -273,6 +274,12 @@ public class Player: MonoBehaviour
         {
             Lose();
         }
+        if(collision.gameObject.CompareTag("Star"))
+        {
+            soundEffector.Play_starSound();
+            currentStar++;
+            print(PlayerPrefs.GetInt("Star"));
+        }
     }
 
     IEnumerator GlobalLightOff(Light2D lg, float time)
@@ -314,9 +321,10 @@ public class Player: MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ladder"))
         {
+            
             isClimbing = true;
             playerRB.gravityScale = 0f;
-            if (Input.GetAxis("Vertical") == 0)
+            if (verticalMove == 0)
             {
                 animator.SetInteger("State", 4);  
                 playerRB.velocity = new Vector2(playerRB.velocity.x, verticalMove);
@@ -435,5 +443,10 @@ public class Player: MonoBehaviour
     public void ActiveBlueGem()
     {
         StartCoroutine(Immortal());
+    }
+
+    public int GetStar()
+    {
+        return currentStar;
     }
 }
